@@ -16,23 +16,26 @@ There are couple of steps involved here
 3. Gradient compute
 4. Gradient accumpulate
 
-  1. Lets examine what happens in forward path : Though forward pass is not always computed during backward prop
+     # 1. Lets examine what happens in forward path : Though forward pass is not always computed during backward prop
 
-      y._ctx = MultiplyContext(parents=[x, a])
-      A Multiply context is created based on the operands and it is stored in the _ctx object of y . 
-      A graph is built with the nodes x and a to compute the gradients later. 
-      It knows which operands have contributed to the multiply operation .
-  2.  Backward initialization when y.backward() is called .
+      + y._ctx = MultiplyContext(parents=[x, a])
+      + A Multiply context is created based on the operands and it is stored in the _ctx object of y . 
+      + A graph is built with the nodes x and a to compute the gradients later. It knows which operands have contributed to the multiply operation .
 
-  3.  During gradient compute using the context _ctx the gradient is computed on the operands something like this :-
+      # 2. Backward initialization
+       Backward initializaton happens when y.backward() is called. 
 
-      Call Multiply backward: returns (grad_wrt_a = 1*x, grad_wrt_x = 1*a)
-      This happens via a multiply rule which knows how to compute the gradients via a differential rule
+      # 3. Gradient compute 
+
+      + Call Multiply backward: returns (grad_wrt_a = 1*x, grad_wrt_x = 1*a)
+      + This happens via a multiply rule which knows how to compute the gradients via a differential rule
       
+      ``` python
       def backward(ctx, grad_output):
         a, x = ctx.parents
       return grad_output * x, grad_output * a
-
+      ```
+      
 
 
 
