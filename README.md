@@ -41,9 +41,10 @@ There are couple of steps involved here
         Once all the gradients are computed they are accumulated and added to the existing gradients this is not needed in this example but makes sense when the           variable input is part of multiple functions for ex :
         y = x * a
         z = W*x + b
-        In this case x gradient will be accumulated and added from both the functions and then final gradient will be computed something like
 
-        if x.grad is none then return None else add to the current 
+        When you call loss.backward(), it adds gradient to each parameter's .grad, like:
+        self.grad += new_gradient
+
       
 
 
