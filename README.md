@@ -14,7 +14,7 @@ There are couple of steps involved here
 1. Forward Pass
 2. Backward initialization
 3. Gradient compute
-4. Gradient accumpulate
+4. Gradient accumulate
 
      # 1. Lets examine what happens in forward path : Though forward pass is not always computed during backward prop
 
@@ -35,6 +35,15 @@ There are couple of steps involved here
         a, x = ctx.parents
       return grad_output * x, grad_output * a
       ```
+      Essentially what this code does is if you want to compute the dy/da it returns x and if you want to compute dy/dx it returns a which is correct.
+
+      # Gradient accumulate
+        Once all the gradients are computed they are accumulated and added to the existing gradients this is not needed in this example but makes sense when the           variable input is part of multiple functions for ex :
+        y = x * a
+        z = W*x + b
+        In this case x gradient will be accumulated and added from both the functions and then final gradient will be computed something like
+
+        if x.grad is none then return None else add to the current 
       
 
 
