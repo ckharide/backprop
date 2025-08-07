@@ -1,6 +1,6 @@
 # backprop
 
-# This is to explain How backprop works with a simple function .
+# This is to explain how backprop works with a simple function .
 
 The idea in back prop is to compute gradients for a function when the gradient flag is on ( which is generally requires_grad) . 
 Lets take a simple example of a func y = x * a and we want to compute the gradients during backprop. 
@@ -37,7 +37,7 @@ There are couple of steps involved here
       ```
       Essentially what this code does is if you want to compute the dy/da it returns x and if you want to compute dy/dx it returns a which is correct.
 
-      # Gradient accumulate
+      # 4. Gradient accumulate
         Once all the gradients are computed they are accumulated and added to the existing gradients this is not needed in this example but makes sense when the           variable input is part of multiple functions for ex :
         y = x * a
         z = W*x + b
